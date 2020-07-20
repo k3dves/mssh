@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -12,8 +13,6 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
 )
-
-const path = "hosts.json"
 
 // Host ..
 type Host struct {
@@ -110,10 +109,11 @@ func main() {
 	var stdoutList, stderrList []io.Reader
 	//b1 := &bytes.Buffer{}
 	fmt.Println("[*]Welcome to mssh")
-	hosts := readHostsFile(path)
+	pathPtr := flag.String("file", "hosts.json", "path to file")
+	flag.Parse()
+	hosts := readHostsFile(*pathPtr)
 	clientList := createClients(hosts)
 	//fmt.Println("[*]Connected to clients, spwaning shell:")
-
 	for _, client := range clientList {
 		stdin, stdout, stderr, err := getShell(client)
 		if err != nil {
