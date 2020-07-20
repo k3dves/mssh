@@ -1,2 +1,2 @@
 # mssh
-mssg: A smart ssh client 
+mssh: A smart ssh client 
