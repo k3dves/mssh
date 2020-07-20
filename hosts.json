@@ -1,0 +1,7 @@
+
+   [
+    { "user": "username1", "hostname": "example1.com", "port": "22" },
+    { "user": "username2", "hostname": "example2.com", "port": "22" },
+    { "user": "username3", "hostname": "example3.com", "port": "22" },
+    { "user": "username4", "hostname": "example4.com", "port": "22" }
+   ]
