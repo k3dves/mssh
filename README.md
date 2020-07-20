@@ -1,5 +1,5 @@
 # mssh: A smart ssh client 
---
+
 # Usage
 * edit the host.json file and add all the hosts you want to connect to
 * download mssh.app from ./releases folder
