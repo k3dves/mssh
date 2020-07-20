@@ -44,12 +44,14 @@ func getCredentials() string {
 	bytePassword, _ := terminal.ReadPassword(int(syscall.Stdin))
 
 	password := string(bytePassword)
-	fmt.Printf("\r")
+	//clear Enter Password from terminal
+	fmt.Printf("\033[2K\r")
 	return password
 }
 func createClients(hostList []Host) []*ssh.Client {
 	var clientList []*ssh.Client
 	var password string = getCredentials()
+	fmt.Printf("[*]Connecting to %d hosts ", len(hostList))
 	for _, host := range hostList {
 		config := &ssh.ClientConfig{
 			User: host.User,
@@ -60,11 +62,12 @@ func createClients(hostList []Host) []*ssh.Client {
 		}
 		client, err := ssh.Dial("tcp", host.Hostname+":"+host.Port, config)
 		if err != nil {
-			fmt.Printf("[*]Error connecting host %s, ignoring.", host.Hostname)
+			fmt.Printf("[*]Error connecting host %s, ignoring.\n", host.Hostname)
 		}
 		clientList = append(clientList, client)
+		fmt.Printf(". ")
 	}
-	fmt.Printf("[*]Successfully Connected to %d hosts\n", len(clientList))
+	fmt.Printf("\n[*]Successfully Connected to %d hosts, launching shell\n", len(clientList))
 	return clientList
 }
 
