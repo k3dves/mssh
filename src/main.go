@@ -182,9 +182,10 @@ func getAllRemoteStdin(rhList []RemoteHost) []io.Writer {
 }
 
 func preProcess(b []byte) {
-	if int(b[0]) == 3 {
+	if int(b[0]) == 37 {
 		print("Bye")
-		os.Exit(0)
+		b[0] = '%'
+		//os.Exit(0)
 	}
 	//fmt.Println(b)
 }
@@ -214,7 +215,8 @@ func main() {
 		for {
 			os.Stdin.Read(b)
 			//preProcess(b)
-			fmt.Fprintf(mw, string(b))
+			io.WriteString(mw, string(b))
+
 		}
 
 	}
